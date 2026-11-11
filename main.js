@@ -23,19 +23,24 @@ const loaderProgress = document.getElementById('loader-progress');
 
 // High-performance smooth scrolling with Lenis (butter smooth 60-120fps)
 const lenis = new Lenis({
-  duration: 1.0,
-  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-  orientation: 'vertical',
-  gestureOrientation: 'vertical',
+  lerp: 0.08,             // Pure continuous physics lerp - silky smooth momentum
+  wheelMultiplier: 0.85,  // Balanced tactile feel for mouse wheels & trackpads
+  touchMultiplier: 1.5,   // Natural responsive touch gliding
   smoothWheel: true,
-  wheelMultiplier: 0.95,
-  touchMultiplier: 1.5,
   infinite: false,
 });
 
-// Sync scroll progress via Lenis event - ZERO layout reflows/DOM reads in RAF!
+// Flag scrolling state on document.body to eliminate hover thrashing during scroll
+let scrollTimer = null;
 lenis.on('scroll', (e) => {
   targetProgress = typeof e.progress === 'number' ? e.progress : 0;
+  if (!document.body.classList.contains('is-scrolling')) {
+    document.body.classList.add('is-scrolling');
+  }
+  clearTimeout(scrollTimer);
+  scrollTimer = setTimeout(() => {
+    document.body.classList.remove('is-scrolling');
+  }, 100);
 });
 
 // Calculate frame file path
@@ -165,21 +170,25 @@ function preloadImages() {
   }
 }
 
-// 60-120fps Animation loop with zero layout reads
+// 60-120fps Animation loop directly synchronized with Lenis
 function renderLoop(time) {
   lenis.raf(time);
 
-  // Smooth lerp towards Lenis scroll target
-  const diff = targetProgress - currentProgress;
-  if (Math.abs(diff) > 0.0001) {
-    currentProgress += diff * 0.18;
+  // Read Lenis's smoothed progress directly (0.0 to 1.0)
+  const progress = typeof lenis.progress === 'number' ? lenis.progress : targetProgress;
+  const targetFrame = progress * (FRAME_COUNT - 1);
+
+  // Sub-frame lerp ensures buttery transitions without discrete step artifacts
+  const diff = targetFrame - currentProgress;
+  if (Math.abs(diff) > 0.001) {
+    currentProgress += diff * 0.25;
   } else {
-    currentProgress = targetProgress;
+    currentProgress = targetFrame;
   }
 
   const frameToRender = Math.min(
     FRAME_COUNT - 1,
-    Math.max(0, Math.round(currentProgress * (FRAME_COUNT - 1)))
+    Math.max(0, Math.round(currentProgress))
   );
 
   drawFrame(frameToRender);

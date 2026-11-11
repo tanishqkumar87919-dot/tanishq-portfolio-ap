@@ -5,46 +5,52 @@ const images = [];
 let loadedCount = 0;
 let lastDrawnFrame = -1;
 let targetProgress = 0;
-let currentProgress = 0;
+let interpolatedFrame = 0;
 
+// Base resolution of project frames (1280x720) pre-initialized
+let baseImgW = 1280;
+let baseImgH = 720;
 let canvasW = 0;
 let canvasH = 0;
 let destX = 0;
 let destY = 0;
 let destW = 0;
 let destH = 0;
-let baseImgW = 0;
-let baseImgH = 0;
 
 const canvas = document.getElementById('canvas');
 const ctx = canvas ? canvas.getContext('2d', { alpha: false, desynchronized: true }) : null;
 const loader = document.getElementById('loader');
 const loaderProgress = document.getElementById('loader-progress');
 
-// High-performance smooth scrolling with Lenis (butter smooth 60-120fps)
+// Liquid physics momentum scrolling with Lenis (butter-smooth 60-120fps)
 const lenis = new Lenis({
-  duration: 1.0,
-  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-  orientation: 'vertical',
-  gestureOrientation: 'vertical',
+  lerp: 0.08,             // Pure continuous physics lerp - silky smooth momentum
+  wheelMultiplier: 0.85,  // Balanced tactile feel for mouse wheels & trackpads
+  touchMultiplier: 1.5,   // Natural responsive touch gliding
   smoothWheel: true,
-  wheelMultiplier: 0.95,
-  touchMultiplier: 1.5,
   infinite: false,
 });
 
-// Sync scroll progress via Lenis event - ZERO layout reflows/DOM reads in RAF!
+// Flag scrolling state on document.body to eliminate hover thrashing during scroll
+let scrollTimer = null;
 lenis.on('scroll', (e) => {
   targetProgress = typeof e.progress === 'number' ? e.progress : 0;
+  if (!document.body.classList.contains('is-scrolling')) {
+    document.body.classList.add('is-scrolling');
+  }
+  clearTimeout(scrollTimer);
+  scrollTimer = setTimeout(() => {
+    document.body.classList.remove('is-scrolling');
+  }, 100);
 });
 
-// Calculate frame file path for project frames
+// Frame image path generator
 function getFramePath(index) {
   const padded = String(index + 1).padStart(3, '0');
   return `/project-frames/ezgif-frame-${padded}.jpg`;
 }
 
-// Compute cover dimensions in physical canvas pixels to avoid per-frame scaling
+// Compute cover dimensions in physical canvas pixels once per resize
 function updateCanvasDimensions() {
   if (!canvas || !ctx) return;
   const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -59,13 +65,11 @@ function updateCanvasDimensions() {
   canvas.style.width = `${w}px`;
   canvas.style.height = `${h}px`;
 
-  if (baseImgW > 0 && baseImgH > 0) {
-    const scale = Math.max(canvasW / baseImgW, canvasH / baseImgH);
-    destW = Math.round(baseImgW * scale);
-    destH = Math.round(baseImgH * scale);
-    destX = Math.round((canvasW - destW) / 2);
-    destY = Math.round((canvasH - destH) / 2);
-  }
+  const scale = Math.max(canvasW / baseImgW, canvasH / baseImgH);
+  destW = Math.round(baseImgW * scale);
+  destH = Math.round(baseImgH * scale);
+  destX = Math.round((canvasW - destW) / 2);
+  destY = Math.round((canvasH - destH) / 2);
 
   ctx.imageSmoothingEnabled = true;
   ctx.imageSmoothingQuality = 'medium';
@@ -75,7 +79,7 @@ function updateCanvasDimensions() {
   }
 }
 
-// Fallback search for nearest loaded frame
+// Fallback lookup: returns frame or nearest loaded neighbor
 function getLoadedFrame(index) {
   if (images[index] && images[index].complete && images[index].naturalWidth > 0) {
     return images[index];
@@ -93,39 +97,32 @@ function getLoadedFrame(index) {
   return null;
 }
 
-// Ultra-fast direct buffer draw (no ctx.save/scale/restore overhead)
+// Ultra-fast direct buffer draw without context save/scale/restore
 function drawFrame(index, force = false) {
   if (!ctx || (!force && index === lastDrawnFrame)) return;
 
   const img = getLoadedFrame(index);
   if (!img) return;
 
-  // Initialize base dimensions on first loaded frame
-  if (baseImgW === 0) {
-    baseImgW = img.naturalWidth;
-    baseImgH = img.naturalHeight;
-    updateCanvasDimensions();
-  }
-
   ctx.drawImage(img, destX, destY, destW, destH);
   lastDrawnFrame = index;
 }
 
-// Preload all 112 project frames with background decoding
+// Preload all 112 project frames with async decoding
 function preloadImages() {
-  // Safety timeout: ensure loader never lingers more than 1.5s
+  // Safety timeout: dismiss loader after 1.2s max
   setTimeout(() => {
     if (loader && !loader.classList.contains('loaded')) {
       loader.classList.add('loaded');
     }
-  }, 1500);
+  }, 1200);
 
   for (let i = 0; i < FRAME_COUNT; i++) {
     const img = new Image();
     img.src = getFramePath(i);
 
     img.onload = () => {
-      // Decode off main thread to prevent GPU/UI jank on initial paint
+      // Decode off main thread so canvas paints with zero hitch
       if ('decode' in img) {
         img.decode().catch(() => {});
       }
@@ -136,28 +133,25 @@ function preloadImages() {
         loaderProgress.style.width = `${progress}%`;
       }
 
-      // Draw initial frame as soon as frame 0 loads
+      // Draw initial frame as soon as frame 0 is ready
       if (i === 0 && lastDrawnFrame === -1) {
-        baseImgW = img.naturalWidth;
-        baseImgH = img.naturalHeight;
-        updateCanvasDimensions();
         drawFrame(0);
       }
 
-      // Hide loader once minimum smooth playback threshold is reached
-      if (loadedCount >= Math.min(25, FRAME_COUNT)) {
+      // Dismiss loader as soon as the first smooth batch is ready
+      if (loadedCount >= Math.min(20, FRAME_COUNT)) {
         setTimeout(() => {
           if (loader) loader.classList.add('loaded');
-        }, 120);
+        }, 100);
       }
     };
 
     img.onerror = () => {
       loadedCount++;
-      if (loadedCount >= Math.min(25, FRAME_COUNT)) {
+      if (loadedCount >= Math.min(20, FRAME_COUNT)) {
         setTimeout(() => {
           if (loader) loader.classList.add('loaded');
-        }, 120);
+        }, 100);
       }
     };
 
@@ -165,21 +159,25 @@ function preloadImages() {
   }
 }
 
-// 60-120fps Animation loop with zero layout reads
+// 60-120fps Animation loop directly synchronized with Lenis
 function renderLoop(time) {
   lenis.raf(time);
 
-  // Smooth lerp towards Lenis scroll target
-  const diff = targetProgress - currentProgress;
-  if (Math.abs(diff) > 0.0001) {
-    currentProgress += diff * 0.18;
+  // Read Lenis's smoothed progress directly (0.0 to 1.0)
+  const progress = typeof lenis.progress === 'number' ? lenis.progress : targetProgress;
+  const targetFrame = progress * (FRAME_COUNT - 1);
+
+  // Sub-frame lerp ensures buttery transitions without discrete step artifacts
+  const diff = targetFrame - interpolatedFrame;
+  if (Math.abs(diff) > 0.001) {
+    interpolatedFrame += diff * 0.25;
   } else {
-    currentProgress = targetProgress;
+    interpolatedFrame = targetFrame;
   }
 
   const frameToRender = Math.min(
     FRAME_COUNT - 1,
-    Math.max(0, Math.round(currentProgress * (FRAME_COUNT - 1)))
+    Math.max(0, Math.round(interpolatedFrame))
   );
 
   drawFrame(frameToRender);
@@ -196,7 +194,6 @@ function setupProjectFilters() {
 
   filterBtns.forEach((btn) => {
     btn.addEventListener('click', () => {
-      // Toggle active button
       filterBtns.forEach((b) => b.classList.remove('active'));
       btn.classList.add('active');
 
@@ -208,21 +205,21 @@ function setupProjectFilters() {
           card.style.display = 'grid';
           setTimeout(() => {
             card.style.opacity = '1';
-            card.style.transform = 'translateY(0)';
+            card.style.transform = 'translateY(0) translateZ(0)';
           }, 10);
         } else {
           card.style.opacity = '0';
-          card.style.transform = 'translateY(16px)';
+          card.style.transform = 'translateY(16px) translateZ(0)';
           setTimeout(() => {
             card.style.display = 'none';
-          }, 300);
+          }, 250);
         }
       });
     });
   });
 }
 
-// Smooth scroll to anchors
+// Smooth scroll to anchors with momentum
 document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
   anchor.addEventListener('click', function (e) {
     const targetId = this.getAttribute('href');
@@ -230,7 +227,7 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
       const target = document.querySelector(targetId);
       if (target) {
         e.preventDefault();
-        lenis.scrollTo(target, { offset: -30, duration: 1.2 });
+        lenis.scrollTo(target, { offset: -30, duration: 1.0 });
       }
     }
   });

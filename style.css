@@ -462,8 +462,9 @@ html::-webkit-scrollbar-thumb:hover {
   flex-direction: column;
   box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35), inset 0 1px 1px 0 rgba(255, 255, 255, 0.22);
   transform: translateZ(0);
-  content-visibility: auto;
-  contain-intrinsic-size: 0 380px;
+  will-change: transform;
+  backface-visibility: hidden;
+  contain: layout style;
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -604,8 +605,9 @@ html::-webkit-scrollbar-thumb:hover {
   padding: 32px;
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3), inset 0 1px 1px 0 rgba(255, 255, 255, 0.2);
   transform: translateZ(0);
-  content-visibility: auto;
-  contain-intrinsic-size: 0 450px;
+  will-change: transform;
+  backface-visibility: hidden;
+  contain: layout style;
 }
 
 .column-header {
@@ -867,8 +869,9 @@ html::-webkit-scrollbar-thumb:hover {
   padding: 48px;
   box-shadow: 0 24px 50px rgba(0, 0, 0, 0.35), inset 0 1px 1px 0 rgba(255, 255, 255, 0.25);
   transform: translateZ(0);
-  content-visibility: auto;
-  contain-intrinsic-size: 0 350px;
+  will-change: transform;
+  backface-visibility: hidden;
+  contain: layout style;
 }
 
 .contact-title {
@@ -1332,8 +1335,9 @@ html::-webkit-scrollbar-thumb:hover {
   overflow: hidden;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35), inset 0 1px 1px 0 rgba(255, 255, 255, 0.25);
   transform: translateZ(0);
-  content-visibility: auto;
-  contain-intrinsic-size: 0 520px;
+  will-change: transform;
+  backface-visibility: hidden;
+  contain: layout style;
 }
 
 .case-study-card:hover {
@@ -1652,8 +1656,9 @@ html::-webkit-scrollbar-thumb:hover {
   gap: 12px;
   box-shadow: 0 16px 36px rgba(0, 0, 0, 0.25), inset 0 1px 1px 0 rgba(255, 255, 255, 0.2);
   transform: translateZ(0);
-  content-visibility: auto;
-  contain-intrinsic-size: 0 240px;
+  will-change: transform;
+  backface-visibility: hidden;
+  contain: layout style;
   transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -1726,5 +1731,11 @@ html::-webkit-scrollbar-thumb:hover {
   .architecture-grid {
     grid-template-columns: 1fr;
   }
+}
+
+/* 60-120 FPS High-Performance Scroll Optimization: Disable hover thrashing during scroll */
+body.is-scrolling,
+body.is-scrolling * {
+  pointer-events: none !important;
 }
 
