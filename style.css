@@ -1,14 +1,17 @@
 :root {
-  --color-bg: #050505;
+  --color-bg: #050508;
   --color-red: #e62429;
   --color-red-glow: rgba(230, 36, 41, 0.35);
-  --color-red-dim: rgba(230, 36, 41, 0.12);
+  --color-red-dim: rgba(230, 36, 41, 0.15);
   --color-text-main: #ffffff;
-  --color-text-muted: #9ca3af;
-  --color-text-dim: #6b7280;
-  --color-border: rgba(255, 255, 255, 0.08);
-  --color-border-hover: rgba(230, 36, 41, 0.4);
-  --color-glass: rgba(14, 14, 18, 0.55);
+  --color-text-muted: #d1d5db;
+  --color-text-dim: #9ca3af;
+  --color-border: rgba(255, 255, 255, 0.14);
+  --color-border-hover: rgba(230, 36, 41, 0.65);
+  --color-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.07) 0%, rgba(14, 14, 26, 0.18) 100%);
+  --color-glass-card: linear-gradient(135deg, rgba(255, 255, 255, 0.07) 0%, rgba(12, 12, 24, 0.18) 100%);
+  --glass-reflection: inset 0 1px 1px 0 rgba(255, 255, 255, 0.25);
+  --glass-shadow: 0 20px 48px rgba(0, 0, 0, 0.35);
   
   --font-display: 'Bebas Neue', sans-serif;
   --font-script: 'Caveat', cursive;
@@ -60,7 +63,7 @@ html::-webkit-scrollbar-thumb:hover {
   background-color: #000000;
 }
 
-/* Ambient dark vignette so text is ultra-legible while 3D animation pops through */
+/* Ultra-light ambient vignette so the 3D scroll animation shines through brightly */
 .ambient-overlay {
   position: fixed;
   top: 0;
@@ -69,7 +72,7 @@ html::-webkit-scrollbar-thumb:hover {
   height: 100vh;
   z-index: 2;
   pointer-events: none;
-  background: radial-gradient(circle at 50% 40%, rgba(5, 5, 5, 0.4) 0%, rgba(5, 5, 5, 0.82) 100%);
+  background: radial-gradient(circle at 50% 50%, rgba(5, 5, 10, 0.0) 0%, rgba(5, 5, 10, 0.18) 100%);
 }
 
 /* Loader Overlay */
@@ -84,13 +87,14 @@ html::-webkit-scrollbar-thumb:hover {
   align-items: center;
   justify-content: center;
   z-index: 999;
-  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.5s;
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.4s;
 }
 
 .loader.loaded {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  display: none !important;
 }
 
 .loader-bar-wrap {
@@ -160,11 +164,13 @@ html::-webkit-scrollbar-thumb:hover {
   letter-spacing: 1.5px;
   color: var(--color-text-muted);
   font-weight: 600;
-  padding: 8px 16px;
-  background: rgba(15, 15, 18, 0.6);
-  backdrop-filter: blur(12px);
-  border: 1px solid var(--color-border);
+  padding: 8px 18px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 100px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25), inset 0 1px 1px 0 rgba(255, 255, 255, 0.25);
 }
 
 .status-dot {
@@ -231,6 +237,7 @@ html::-webkit-scrollbar-thumb:hover {
   display: block;
   margin-bottom: -10px;
   transform: rotate(-2deg);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
 }
 
 .hero-name {
@@ -240,6 +247,7 @@ html::-webkit-scrollbar-thumb:hover {
   letter-spacing: 2px;
   color: #ffffff;
   margin-bottom: 20px;
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.9);
 }
 
 .hero-role {
@@ -248,6 +256,7 @@ html::-webkit-scrollbar-thumb:hover {
   color: var(--color-red);
   font-weight: 700;
   margin-bottom: 18px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
 }
 
 .hero-bio {
@@ -256,6 +265,7 @@ html::-webkit-scrollbar-thumb:hover {
   line-height: 1.7;
   color: var(--color-text-muted);
   margin-bottom: 28px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.85);
 }
 
 .hero-actions {
@@ -270,10 +280,12 @@ html::-webkit-scrollbar-thumb:hover {
   align-items: center;
   gap: 10px;
   padding: 8px 18px;
-  border: 1px solid var(--color-border);
+  border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 100px;
-  background: rgba(14, 14, 18, 0.5);
-  backdrop-filter: blur(12px);
+  background: rgba(18, 18, 30, 0.25);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25), inset 0 1px 1px 0 rgba(255, 255, 255, 0.25);
   font-size: 11px;
   letter-spacing: 1.5px;
   font-weight: 600;
@@ -286,10 +298,12 @@ html::-webkit-scrollbar-thumb:hover {
   align-items: center;
   gap: 8px;
   padding: 8px 18px;
-  border: 1px solid var(--color-border);
+  border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 100px;
-  background: rgba(14, 14, 18, 0.5);
-  backdrop-filter: blur(12px);
+  background: rgba(18, 18, 30, 0.25);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25), inset 0 1px 1px 0 rgba(255, 255, 255, 0.2);
   font-size: 11px;
   letter-spacing: 1.5px;
   font-weight: 600;
@@ -301,8 +315,8 @@ html::-webkit-scrollbar-thumb:hover {
 .hero-github-badge:hover {
   color: #ffffff;
   border-color: var(--color-red);
-  background: var(--color-red-dim);
-  box-shadow: 0 0 14px var(--color-red-glow);
+  background: rgba(230, 36, 41, 0.2);
+  box-shadow: 0 0 20px var(--color-red-glow), inset 0 1px 1px 0 rgba(255, 255, 255, 0.3);
 }
 .badge-icon {
   display: flex;
@@ -324,10 +338,12 @@ html::-webkit-scrollbar-thumb:hover {
   gap: 10px;
   max-width: 260px;
   padding: 16px 20px;
-  background: var(--color-glass);
-  backdrop-filter: blur(16px);
-  border: 1px solid var(--color-border);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(14, 14, 24, 0.2) 100%);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 12px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.25);
 }
 .quote-star {
   color: var(--color-red);
@@ -428,20 +444,22 @@ html::-webkit-scrollbar-thumb:hover {
 }
 
 .project-card {
-  background: var(--color-glass);
-  backdrop-filter: blur(16px);
-  border: 1px solid var(--color-border);
-  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(14, 14, 24, 0.22) 100%);
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 14px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35), inset 0 1px 1px 0 rgba(255, 255, 255, 0.22);
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
 .project-card:hover {
   transform: translateY(-6px);
   border-color: var(--color-border-hover);
-  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.5), 0 0 24px var(--color-red-glow);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45), 0 0 28px var(--color-red-glow), inset 0 1px 1px 0 rgba(255, 255, 255, 0.3);
 }
 
 .project-media {
@@ -449,18 +467,20 @@ html::-webkit-scrollbar-thumb:hover {
   width: 100%;
   aspect-ratio: 16 / 10;
   overflow: hidden;
-  background: #000;
+  background: rgba(0, 0, 0, 0.2);
 }
 
 .project-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 0.88;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
 }
 
 .project-card:hover .project-img {
   transform: scale(1.06);
+  opacity: 1;
 }
 
 .media-overlay {
@@ -470,11 +490,11 @@ html::-webkit-scrollbar-thumb:hover {
   flex-direction: column;
   justify-content: flex-end;
   padding: 20px;
-  background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%);
+  background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(5, 5, 10, 0.6) 100%);
 }
 
 .media-overlay-light {
-  background: linear-gradient(180deg, rgba(240,240,240,0.1) 0%, rgba(10,10,10,0.85) 100%);
+  background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(5, 5, 10, 0.6) 100%);
 }
 
 .overlay-brand {
@@ -483,6 +503,7 @@ html::-webkit-scrollbar-thumb:hover {
   font-weight: 800;
   letter-spacing: 2px;
   color: #ffffff;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
 }
 
 .overlay-sub {
@@ -490,6 +511,7 @@ html::-webkit-scrollbar-thumb:hover {
   letter-spacing: 1px;
   color: var(--color-text-muted);
   margin-top: 2px;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
 }
 
 .overlay-micro {
@@ -498,6 +520,7 @@ html::-webkit-scrollbar-thumb:hover {
   color: var(--color-red);
   margin-top: 4px;
   font-weight: 700;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
 }
 
 .project-meta {
@@ -505,8 +528,10 @@ html::-webkit-scrollbar-thumb:hover {
   align-items: center;
   justify-content: space-between;
   padding: 18px 20px;
-  background: rgba(10, 10, 14, 0.7);
-  border-top: 1px solid var(--color-border);
+  background: rgba(14, 14, 24, 0.25);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .meta-num {
@@ -560,11 +585,13 @@ html::-webkit-scrollbar-thumb:hover {
 }
 
 .details-column {
-  background: var(--color-glass);
-  backdrop-filter: blur(16px);
-  border: 1px solid var(--color-border);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(12, 12, 22, 0.22) 100%);
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 14px;
   padding: 32px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3), inset 0 1px 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .column-header {
@@ -638,10 +665,13 @@ html::-webkit-scrollbar-thumb:hover {
   letter-spacing: 1px;
   font-weight: 700;
   color: var(--color-text-muted);
-  padding: 6px 12px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--color-border);
-  border-radius: 6px;
+  padding: 6px 14px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(14px) saturate(180%);
+  -webkit-backdrop-filter: blur(14px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.15);
   transition: all 0.3s ease;
 }
 
@@ -649,6 +679,8 @@ html::-webkit-scrollbar-thumb:hover {
   color: #ffffff;
   border-color: var(--color-red);
   background: var(--color-red-dim);
+  box-shadow: 0 4px 14px var(--color-red-glow), inset 0 1px 1px 0 rgba(255, 255, 255, 0.25);
+  transform: translateY(-1px);
 }
 
 /* Work Process Timeline */
@@ -698,18 +730,21 @@ html::-webkit-scrollbar-thumb:hover {
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: #0d0d10;
-  border: 1px solid var(--color-border);
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--color-red);
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.2);
   transition: all 0.3s ease;
 }
 
 .process-item:hover .step-icon {
   border-color: var(--color-red);
-  box-shadow: 0 0 12px var(--color-red-glow);
+  box-shadow: 0 0 14px var(--color-red-glow), inset 0 1px 1px 0 rgba(255, 255, 255, 0.3);
   transform: scale(1.1);
 }
 
@@ -741,15 +776,16 @@ html::-webkit-scrollbar-thumb:hover {
 .quote-card-box {
   width: 100%;
   height: 100%;
-  background: linear-gradient(155deg, rgba(185, 28, 28, 0.45) 0%, rgba(90, 10, 15, 0.65) 100%);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(239, 68, 68, 0.28);
+  background: linear-gradient(155deg, rgba(230, 36, 41, 0.22) 0%, rgba(20, 10, 18, 0.28) 100%);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 14px;
   padding: 40px 32px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.35), inset 0 1px 1px 0 rgba(255, 255, 255, 0.3);
 }
 
 .quote-glyph {
@@ -807,11 +843,13 @@ html::-webkit-scrollbar-thumb:hover {
   grid-template-columns: 1fr 1fr 1fr;
   gap: 32px;
   align-items: center;
-  background: var(--color-glass);
-  backdrop-filter: blur(16px);
-  border: 1px solid var(--color-border);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(14, 14, 24, 0.22) 100%);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 16px;
   padding: 48px;
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.35), inset 0 1px 1px 0 rgba(255, 255, 255, 0.25);
 }
 
 .contact-title {
@@ -882,13 +920,16 @@ html::-webkit-scrollbar-thumb:hover {
   display: flex;
   align-items: center;
   gap: 16px;
-  padding: 12px 16px;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid var(--color-border);
-  border-radius: 10px;
+  padding: 12px 18px;
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(14px) saturate(180%);
+  -webkit-backdrop-filter: blur(14px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 12px;
   text-decoration: none;
   color: var(--color-text-muted);
   font-size: 13px;
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.16);
   transition: all 0.3s ease;
 }
 
@@ -896,34 +937,42 @@ html::-webkit-scrollbar-thumb:hover {
   color: #ffffff;
   border-color: var(--color-red);
   background: var(--color-red-dim);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25), inset 0 1px 1px 0 rgba(255, 255, 255, 0.25);
   transform: translateX(4px);
 }
 
 .contact-icon-wrap {
-  width: 34px;
-  height: 34px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  border: 1px solid var(--color-border);
-  background: #0d0d10;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--color-red);
   flex-shrink: 0;
-  transition: border-color 0.3s ease;
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
 }
 
 .contact-item:hover .contact-icon-wrap {
   border-color: var(--color-red);
+  background: rgba(230, 36, 41, 0.2);
+  box-shadow: 0 0 12px var(--color-red-glow), inset 0 1px 1px 0 rgba(255, 255, 255, 0.3);
 }
 
 /* Showcase Laptop Card */
 .contact-mockup-card {
-  border-radius: 12px;
+  border-radius: 14px;
   overflow: hidden;
-  border: 1px solid var(--color-border);
-  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.6);
-  background: #000;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.4), inset 0 1px 1px 0 rgba(255, 255, 255, 0.25);
+  background: rgba(14, 14, 24, 0.2);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }
 
 .mockup-img-container {
@@ -945,9 +994,11 @@ html::-webkit-scrollbar-thumb:hover {
   left: 16px;
   right: 16px;
   padding: 10px 14px;
-  background: rgba(0, 0, 0, 0.75);
-  backdrop-filter: blur(8px);
-  border-radius: 6px;
+  background: rgba(10, 10, 20, 0.55);
+  backdrop-filter: blur(14px) saturate(180%);
+  -webkit-backdrop-filter: blur(14px) saturate(180%);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
   border-left: 3px solid var(--color-red);
 }
 
@@ -1023,11 +1074,13 @@ html::-webkit-scrollbar-thumb:hover {
   display: flex;
   align-items: center;
   gap: 20px;
-  background: rgba(14, 14, 18, 0.65);
-  backdrop-filter: blur(14px);
-  padding: 8px 18px;
+  background: rgba(18, 18, 30, 0.35);
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  padding: 8px 20px;
   border-radius: 999px;
-  border: 1px solid var(--color-border);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), inset 0 1px 1px 0 rgba(255, 255, 255, 0.25);
 }
 
 .nav-item {
@@ -1126,6 +1179,7 @@ html::-webkit-scrollbar-thumb:hover {
   letter-spacing: 2px;
   color: #ffffff;
   margin: 8px 0;
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.9);
 }
 
 .projects-hero-subtitle {
@@ -1134,6 +1188,7 @@ html::-webkit-scrollbar-thumb:hover {
   color: var(--color-text-muted);
   max-width: 720px;
   margin: 0 auto;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.85);
 }
 
 /* Quick Stats Ribbon */
@@ -1143,12 +1198,14 @@ html::-webkit-scrollbar-thumb:hover {
   justify-content: center;
   flex-wrap: wrap;
   gap: 24px;
-  background: var(--color-glass);
-  backdrop-filter: blur(16px);
-  border: 1px solid var(--color-border);
-  padding: 16px 28px;
-  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(16, 16, 28, 0.2) 100%);
+  backdrop-filter: blur(18px) saturate(190%);
+  -webkit-backdrop-filter: blur(18px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  padding: 18px 32px;
+  border-radius: 14px;
   margin-top: 10px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25), inset 0 1px 1px 0 rgba(255, 255, 255, 0.25);
 }
 
 .ribbon-item {
@@ -1176,7 +1233,7 @@ html::-webkit-scrollbar-thumb:hover {
 .ribbon-divider {
   width: 1px;
   height: 28px;
-  background: var(--color-border);
+  background: rgba(255, 255, 255, 0.12);
 }
 
 /* Filter Bar */
@@ -1190,30 +1247,36 @@ html::-webkit-scrollbar-thumb:hover {
 }
 
 .filter-btn {
-  background: rgba(14, 14, 18, 0.7);
-  backdrop-filter: blur(12px);
-  border: 1px solid var(--color-border);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(14px) saturate(180%);
+  -webkit-backdrop-filter: blur(14px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   color: var(--color-text-muted);
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 1.2px;
-  padding: 10px 18px;
+  padding: 10px 20px;
   border-radius: 999px;
   cursor: pointer;
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.15);
   transition: all 0.25s ease;
 }
 
 .filter-btn:hover {
-  border-color: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.3);
   color: #ffffff;
   transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25), inset 0 1px 1px 0 rgba(255, 255, 255, 0.25);
 }
 
 .filter-btn.active {
-  background: var(--color-red);
-  border-color: var(--color-red);
+  background: linear-gradient(135deg, rgba(230, 36, 41, 0.85) 0%, rgba(180, 20, 25, 0.9) 100%);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-color: rgba(255, 120, 120, 0.6);
   color: #ffffff;
-  box-shadow: 0 4px 16px var(--color-red-glow);
+  box-shadow: 0 4px 20px var(--color-red-glow), inset 0 1px 1px 0 rgba(255, 255, 255, 0.4);
 }
 
 /* ==========================================================================
@@ -1233,20 +1296,22 @@ html::-webkit-scrollbar-thumb:hover {
   display: grid;
   grid-template-columns: 1.15fr 0.85fr;
   gap: 36px;
-  background: var(--color-glass);
-  backdrop-filter: blur(20px);
-  border: 1px solid var(--color-border);
-  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.07) 0%, rgba(14, 14, 26, 0.18) 100%);
+  backdrop-filter: blur(20px) saturate(190%);
+  -webkit-backdrop-filter: blur(20px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 18px;
   padding: 36px;
   transition: border-color 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
   position: relative;
   overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35), inset 0 1px 1px 0 rgba(255, 255, 255, 0.25);
 }
 
 .case-study-card:hover {
   border-color: var(--color-border-hover);
   transform: translateY(-4px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 30px var(--color-red-glow);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45), 0 0 32px var(--color-red-glow), inset 0 1px 2px 0 rgba(255, 255, 255, 0.35);
 }
 
 .card-left {
@@ -1283,6 +1348,7 @@ html::-webkit-scrollbar-thumb:hover {
   font-weight: 800;
   line-height: 1.25;
   color: #ffffff;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.85);
 }
 
 .card-summary {
@@ -1297,9 +1363,12 @@ html::-webkit-scrollbar-thumb:hover {
   grid-template-columns: repeat(3, 1fr);
   gap: 12px;
   padding: 16px;
-  background: rgba(0, 0, 0, 0.35);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.035);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.15);
 }
 
 .impact-metric {
@@ -1369,11 +1438,21 @@ html::-webkit-scrollbar-thumb:hover {
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 1px;
-  padding: 4px 10px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 5px 12px;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 6px;
   color: var(--color-text-muted);
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.15);
+  transition: all 0.25s ease;
+}
+
+.tech-pill:hover {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 /* Footer Action Buttons */
@@ -1409,20 +1488,25 @@ html::-webkit-scrollbar-thumb:hover {
   display: inline-flex;
   align-items: center;
   padding: 10px 18px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid var(--color-border);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
   color: var(--color-text-muted);
   border-radius: 8px;
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 1.2px;
   text-decoration: none;
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.18);
   transition: all 0.2s ease;
 }
 
 .btn-project-secondary:hover {
-  border-color: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.1);
   color: #ffffff;
+  transform: translateY(-1px);
 }
 
 /* Right Side - Window Preview */
@@ -1436,14 +1520,16 @@ html::-webkit-scrollbar-thumb:hover {
   width: 100%;
   height: 100%;
   min-height: 280px;
-  border-radius: 12px;
+  border-radius: 14px;
   overflow: hidden;
-  background: #09090c;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(14, 14, 24, 0.2);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   display: flex;
   flex-direction: column;
   position: relative;
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35), inset 0 1px 1px 0 rgba(255, 255, 255, 0.25);
 }
 
 .window-bar {
@@ -1451,8 +1537,10 @@ html::-webkit-scrollbar-thumb:hover {
   align-items: center;
   gap: 6px;
   padding: 10px 14px;
-  background: #121217;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .win-dot {
@@ -1490,7 +1578,8 @@ html::-webkit-scrollbar-thumb:hover {
   left: 0;
   right: 0;
   padding: 14px 18px;
-  background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.85) 100%);
+  background: linear-gradient(180deg, transparent 0%, rgba(8, 8, 16, 0.75) 100%);
+  backdrop-filter: blur(6px);
   display: flex;
   flex-direction: column;
   gap: 2px;
@@ -1523,20 +1612,23 @@ html::-webkit-scrollbar-thumb:hover {
 }
 
 .arch-card {
-  background: var(--color-glass);
-  backdrop-filter: blur(16px);
-  border: 1px solid var(--color-border);
-  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(14, 14, 24, 0.18) 100%);
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 14px;
   padding: 28px 22px;
   display: flex;
   flex-direction: column;
   gap: 12px;
-  transition: transform 0.3s ease, border-color 0.3s ease;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.25), inset 0 1px 1px 0 rgba(255, 255, 255, 0.2);
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .arch-card:hover {
   transform: translateY(-4px);
   border-color: var(--color-border-hover);
+  box-shadow: 0 20px 44px rgba(0, 0, 0, 0.35), 0 0 24px var(--color-red-glow), inset 0 1px 1px 0 rgba(255, 255, 255, 0.3);
 }
 
 .arch-number {
@@ -1571,7 +1663,9 @@ html::-webkit-scrollbar-thumb:hover {
 .arch-tags span {
   font-size: 10px;
   color: var(--color-red);
-  background: var(--color-red-dim);
+  background: rgba(230, 36, 41, 0.14);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(230, 36, 41, 0.25);
   padding: 3px 8px;
   border-radius: 4px;
   font-weight: 600;

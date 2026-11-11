@@ -97,6 +97,13 @@ function drawFrame(index, force = false) {
 
 // Preload all 238 frames into memory
 function preloadImages() {
+  // Safety timeout: ensure loader never lingers more than 1.5s
+  setTimeout(() => {
+    if (loader && !loader.classList.contains('loaded')) {
+      loader.classList.add('loaded');
+    }
+  }, 1500);
+
   for (let i = 0; i < FRAME_COUNT; i++) {
     const img = new Image();
     img.src = getFramePath(i);
@@ -113,20 +120,20 @@ function preloadImages() {
         drawFrame(0);
       }
 
-      // Hide loader once all frames are ready
-      if (loadedCount === FRAME_COUNT) {
+      // Hide loader once minimum smooth playback threshold is reached
+      if (loadedCount >= Math.min(30, FRAME_COUNT)) {
         setTimeout(() => {
           if (loader) loader.classList.add('loaded');
-        }, 150);
+        }, 120);
       }
     };
 
     img.onerror = () => {
       loadedCount++;
-      if (loadedCount === FRAME_COUNT) {
+      if (loadedCount >= Math.min(30, FRAME_COUNT)) {
         setTimeout(() => {
           if (loader) loader.classList.add('loaded');
-        }, 150);
+        }, 120);
       }
     };
 
