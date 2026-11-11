@@ -4,23 +4,38 @@ const FRAME_COUNT = 238;
 const images = [];
 let loadedCount = 0;
 let lastDrawnFrame = -1;
-let targetFrame = 0;
-let interpolatedFrame = 0;
+let targetProgress = 0;
+let currentProgress = 0;
+
+let canvasW = 0;
+let canvasH = 0;
+let destX = 0;
+let destY = 0;
+let destW = 0;
+let destH = 0;
+let baseImgW = 0;
+let baseImgH = 0;
 
 const canvas = document.getElementById('canvas');
-const ctx = canvas.getContext('2d', { alpha: false });
+const ctx = canvas ? canvas.getContext('2d', { alpha: false, desynchronized: true }) : null;
 const loader = document.getElementById('loader');
 const loaderProgress = document.getElementById('loader-progress');
 
-// Initialize smooth scrolling with Lenis
+// High-performance smooth scrolling with Lenis (butter smooth 60-120fps)
 const lenis = new Lenis({
-  duration: 1.2,
+  duration: 1.0,
   easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
   orientation: 'vertical',
   gestureOrientation: 'vertical',
   smoothWheel: true,
-  wheelMultiplier: 1.0,
-  touchMultiplier: 1.8,
+  wheelMultiplier: 0.95,
+  touchMultiplier: 1.5,
+  infinite: false,
+});
+
+// Sync scroll progress via Lenis event - ZERO layout reflows/DOM reads in RAF!
+lenis.on('scroll', (e) => {
+  targetProgress = typeof e.progress === 'number' ? e.progress : 0;
 });
 
 // Calculate frame file path
@@ -29,24 +44,38 @@ function getFramePath(index) {
   return `/frames/ezgif-frame-${padded}.jpg`;
 }
 
-// Resize canvas handling HiDPI displays
-function resizeCanvas() {
-  const dpr = window.devicePixelRatio || 1;
+// Compute cover dimensions in physical canvas pixels to avoid per-frame scaling
+function updateCanvasDimensions() {
+  if (!canvas || !ctx) return;
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
   const w = window.innerWidth;
   const h = window.innerHeight;
 
-  canvas.width = Math.round(w * dpr);
-  canvas.height = Math.round(h * dpr);
+  canvasW = Math.round(w * dpr);
+  canvasH = Math.round(h * dpr);
+
+  canvas.width = canvasW;
+  canvas.height = canvasH;
   canvas.style.width = `${w}px`;
   canvas.style.height = `${h}px`;
 
-  // Force redraw on resize
+  if (baseImgW > 0 && baseImgH > 0) {
+    const scale = Math.max(canvasW / baseImgW, canvasH / baseImgH);
+    destW = Math.round(baseImgW * scale);
+    destH = Math.round(baseImgH * scale);
+    destX = Math.round((canvasW - destW) / 2);
+    destY = Math.round((canvasH - destH) / 2);
+  }
+
+  ctx.imageSmoothingEnabled = true;
+  ctx.imageSmoothingQuality = 'medium';
+
   if (lastDrawnFrame >= 0) {
     drawFrame(lastDrawnFrame, true);
   }
 }
 
-// Retrieve target frame or fallback to nearest loaded frame for zero flicker
+// Fallback search for nearest loaded frame
 function getLoadedFrame(index) {
   if (images[index] && images[index].complete && images[index].naturalWidth > 0) {
     return images[index];
@@ -64,38 +93,25 @@ function getLoadedFrame(index) {
   return null;
 }
 
-// Draw a specific frame using 'cover' mode to fit any screen
+// Ultra-fast direct buffer draw (no ctx.save/scale/restore overhead)
 function drawFrame(index, force = false) {
-  if (!force && index === lastDrawnFrame) return;
+  if (!ctx || (!force && index === lastDrawnFrame)) return;
 
   const img = getLoadedFrame(index);
   if (!img) return;
 
-  const dpr = window.devicePixelRatio || 1;
-  const w = window.innerWidth;
-  const h = window.innerHeight;
+  // Initialize base dimensions on first loaded frame
+  if (baseImgW === 0) {
+    baseImgW = img.naturalWidth;
+    baseImgH = img.naturalHeight;
+    updateCanvasDimensions();
+  }
 
-  ctx.save();
-  ctx.scale(dpr, dpr);
-  ctx.imageSmoothingEnabled = true;
-  ctx.imageSmoothingQuality = 'high';
-
-  // Calculate cover aspect ratio
-  const imgW = img.naturalWidth;
-  const imgH = img.naturalHeight;
-  const scale = Math.max(w / imgW, h / imgH);
-  const renderW = imgW * scale;
-  const renderH = imgH * scale;
-  const offsetX = (w - renderW) / 2;
-  const offsetY = (h - renderH) / 2;
-
-  ctx.drawImage(img, offsetX, offsetY, renderW, renderH);
-  ctx.restore();
-
+  ctx.drawImage(img, destX, destY, destW, destH);
   lastDrawnFrame = index;
 }
 
-// Preload all 238 frames into memory
+// Preload all 238 frames into memory with background decoding
 function preloadImages() {
   // Safety timeout: ensure loader never lingers more than 1.5s
   setTimeout(() => {
@@ -109,6 +125,11 @@ function preloadImages() {
     img.src = getFramePath(i);
 
     img.onload = () => {
+      // Decode off main thread to prevent GPU/UI jank on initial paint
+      if ('decode' in img) {
+        img.decode().catch(() => {});
+      }
+
       loadedCount++;
       const progress = (loadedCount / FRAME_COUNT) * 100;
       if (loaderProgress) {
@@ -117,6 +138,9 @@ function preloadImages() {
 
       // Draw initial frame as soon as frame 0 loads
       if (i === 0 && lastDrawnFrame === -1) {
+        baseImgW = img.naturalWidth;
+        baseImgH = img.naturalHeight;
+        updateCanvasDimensions();
         drawFrame(0);
       }
 
@@ -141,29 +165,21 @@ function preloadImages() {
   }
 }
 
-// Animation loop with sub-frame dampening
+// 60-120fps Animation loop with zero layout reads
 function renderLoop(time) {
   lenis.raf(time);
 
-  // Compute scroll progress (0 to 1)
-  const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-  const currentScroll = window.scrollY || window.pageYOffset || 0;
-  const scrollFraction = maxScroll > 0 ? Math.max(0, Math.min(1, currentScroll / maxScroll)) : 0;
-
-  targetFrame = scrollFraction * (FRAME_COUNT - 1);
-
-  // Smooth lerp interpolation for silky momentum
-  const lerpFactor = 0.12;
-  interpolatedFrame += (targetFrame - interpolatedFrame) * lerpFactor;
-
-  // Snap when extremely close to target to avoid micro-renders
-  if (Math.abs(targetFrame - interpolatedFrame) < 0.001) {
-    interpolatedFrame = targetFrame;
+  // Smooth lerp towards Lenis scroll target
+  const diff = targetProgress - currentProgress;
+  if (Math.abs(diff) > 0.0001) {
+    currentProgress += diff * 0.18;
+  } else {
+    currentProgress = targetProgress;
   }
 
   const frameToRender = Math.min(
     FRAME_COUNT - 1,
-    Math.max(0, Math.round(interpolatedFrame))
+    Math.max(0, Math.round(currentProgress * (FRAME_COUNT - 1)))
   );
 
   drawFrame(frameToRender);
@@ -179,14 +195,22 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
       const target = document.querySelector(targetId);
       if (target) {
         e.preventDefault();
-        lenis.scrollTo(target, { offset: -30, duration: 1.4 });
+        lenis.scrollTo(target, { offset: -30, duration: 1.2 });
       }
     }
   });
 });
 
-// Initialize
-window.addEventListener('resize', resizeCanvas);
-resizeCanvas();
+// Debounced resize handler for resize performance
+let resizeTimeout = null;
+window.addEventListener('resize', () => {
+  if (resizeTimeout) cancelAnimationFrame(resizeTimeout);
+  resizeTimeout = requestAnimationFrame(() => {
+    updateCanvasDimensions();
+  });
+}, { passive: true });
+
+// Boot engine
+updateCanvasDimensions();
 preloadImages();
 requestAnimationFrame(renderLoop);
