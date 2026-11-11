@@ -18,6 +18,11 @@
   <img src="screenshots/portfolio-full.png" width="800" alt="Tanishq Kumar Full Portfolio Screenshot" />
 </p>
 
+### Projects Showcase Page Preview
+<p align="center">
+  <img src="screenshots/project-page-hero.png" width="800" alt="Tanishq Kumar Projects Showcase Preview" />
+</p>
+
 ---
 
 ## ✨ Key Features

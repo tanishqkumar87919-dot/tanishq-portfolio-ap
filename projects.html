@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projects Showcase — Tanishq Kumar | Data Analyst & AI/ML Specialist</title>
+  
+  <!-- Google Fonts matching the portfolio design system -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat:wght@600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+  
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body class="page-projects">
+  <!-- Minimalist loading overlay -->
+  <div id="loader" class="loader">
+    <div class="loader-bar-wrap">
+      <div id="loader-progress" class="loader-bar"></div>
+    </div>
+  </div>
+
+  <!-- Pinned 4K Canvas for the smooth scroll animation -->
+  <canvas id="canvas"></canvas>
+
+  <!-- Ambient dark subtle backdrop overlay for crisp contrast -->
+  <div class="ambient-overlay"></div>
+
+  <!-- Main Scrollable Content Container -->
+  <div class="content-wrapper">
+    
+    <!-- Top Navigation Header -->
+    <header class="navbar">
+      <a href="/index.html" class="nav-brand" style="text-decoration: none; color: inherit;">
+        <span class="nav-title">TANISHQ KUMAR</span>
+        <span class="nav-sub">DATA ANALYST &bull; AI/ML SPECIALIST</span>
+      </a>
+
+      <nav class="nav-menu">
+        <a href="/index.html" class="nav-item">← HOME</a>
+        <a href="/projects.html" class="nav-item active">PROJECTS</a>
+        <a href="/index.html#skills" class="nav-item">SKILLS</a>
+        <a href="#contact" class="nav-item">CONTACT</a>
+      </nav>
+
+      <div class="nav-status">
+        <span class="status-dot"></span>
+        <span class="status-text">AVAILABLE FOR FREELANCE</span>
+        <span class="star-accent">✦</span>
+      </div>
+    </header>
+
+    <!-- Projects Page Hero Section -->
+    <section class="section-hero projects-hero">
+      <div class="hero-watermark" aria-hidden="true">PROJECTS</div>
+
+      <div class="projects-hero-container">
+        <div class="hero-breadcrumb">
+          <a href="/index.html">HOME</a>
+          <span class="breadcrumb-sep">/</span>
+          <span class="breadcrumb-current">PROJECTS SHOWCASE</span>
+        </div>
+
+        <h1 class="projects-hero-title">
+          DATA INTELLIGENCE<br/>
+          <span class="red-accent">&amp; ANALYTICS SYSTEMS</span>
+        </h1>
+
+        <p class="projects-hero-subtitle">
+          Explore end-to-end analytics pipelines, executive Business Intelligence dashboards, predictive machine learning models, and big data transformations designed to solve real business challenges.
+        </p>
+
+        <!-- Quick Stats Ribbon -->
+        <div class="projects-stats-ribbon">
+          <div class="ribbon-item">
+            <span class="ribbon-val">10+</span>
+            <span class="ribbon-lbl">PROJECTS COMPLETED</span>
+          </div>
+          <div class="ribbon-divider"></div>
+          <div class="ribbon-item">
+            <span class="ribbon-val">15+</span>
+            <span class="ribbon-lbl">HAPPY CLIENTS</span>
+          </div>
+          <div class="ribbon-divider"></div>
+          <div class="ribbon-item">
+            <span class="ribbon-val">1+</span>
+            <span class="ribbon-lbl">YEARS EXPERIENCE</span>
+          </div>
+          <div class="ribbon-divider"></div>
+          <div class="ribbon-item">
+            <span class="ribbon-val">B.Tech</span>
+            <span class="ribbon-lbl">CSE (AI &amp; ML) 2024-2028</span>
+          </div>
+        </div>
+
+        <!-- Filter Controls -->
+        <div class="filter-bar">
+          <button class="filter-btn active" data-filter="all">ALL PROJECTS (6)</button>
+          <button class="filter-btn" data-filter="bi">EXECUTIVE BI &amp; DASHBOARDS</button>
+          <button class="filter-btn" data-filter="ml">PREDICTIVE ML &amp; AI</button>
+          <button class="filter-btn" data-filter="sql">SQL &amp; BIG DATA</button>
+          <button class="filter-btn" data-filter="analytics">PRODUCT &amp; OPERATIONS</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Case Studies Showcase Section -->
+    <section class="section-case-studies" id="case-studies">
+      <div class="case-studies-list">
+        
+        <!-- Project 1: Executive KPI & Revenue Intelligence Suite -->
+        <article class="case-study-card" data-category="bi">
+          <div class="card-left">
+            <div class="card-header-badge">
+              <span class="card-index">01</span>
+              <span class="card-category-badge">EXECUTIVE BI &bull; POWER BI &bull; DAX</span>
+            </div>
+            
+            <h2 class="card-title">Executive KPI &amp; Enterprise Revenue Cockpit</h2>
+            
+            <p class="card-summary">
+              Architected a centralized executive analytics portal consolidating 1.2M+ sales transactions across EMEA and APAC territories. Provides C-suite leadership real-time visibility into MRR velocity, customer acquisition costs, and cohort retention decay.
+            </p>
+
+            <div class="card-impact-metrics">
+              <div class="impact-metric">
+                <span class="metric-num">$1.4M</span>
+                <span class="metric-text">Revenue Leakage Identified</span>
+              </div>
+              <div class="impact-metric">
+                <span class="metric-num">24%</span>
+                <span class="metric-text">Customer Churn Reduction</span>
+              </div>
+              <div class="impact-metric">
+                <span class="metric-num">12 hrs/wk</span>
+                <span class="metric-text">Reporting Time Saved</span>
+              </div>
+            </div>
+
+            <div class="card-methodology">
+              <h3 class="method-title">ANALYTICAL WORKFLOW</h3>
+              <ul class="method-list">
+                <li>Engineered Star Schema data models with dimensional fact tables in PostgreSQL.</li>
+                <li>Authored complex DAX measures: Rolling 12M ARR, Customer Lifetime Value (LTV), Dynamic Cohort Matrices.</li>
+                <li>Built automated incremental data refreshes with Power BI Service and role-based row-level security (RLS).</li>
+              </ul>
+            </div>
+
+            <div class="card-tech-pills">
+              <span class="tech-pill">POWER BI</span>
+              <span class="tech-pill">SQL</span>
+              <span class="tech-pill">DAX</span>
+              <span class="tech-pill">POSTGRESQL</span>
+              <span class="tech-pill">ETL AUTOMATION</span>
+              <span class="tech-pill">DATA MODELING</span>
+            </div>
+
+            <div class="card-footer-actions">
+              <a href="https://github.com/tanishqkumar87919-dot" target="_blank" rel="noreferrer" class="btn-project-primary">
+                <span>VIEW REPOSITORY</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+              </a>
+              <a href="#contact" class="btn-project-secondary">REQUEST LIVE DEMO</a>
+            </div>
+          </div>
+
+          <div class="card-right">
+            <div class="card-preview-window">
+              <div class="window-bar">
+                <span class="win-dot red"></span>
+                <span class="win-dot yellow"></span>
+                <span class="win-dot green"></span>
+                <span class="win-title">powerbi-executive-revenue.pbix</span>
+              </div>
+              <img src="/images/sales-dashboard.jpg" alt="Sales Dashboard Case Study" class="window-image" />
+              <div class="window-overlay">
+                <span class="overlay-tag">PRODUCTION BI DEPLOYMENT</span>
+                <span class="overlay-stats">1.2M+ Rows &bull; 99.8% Sync Uptime</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 2: Customer Attrition & Predictive Churn Pipeline -->
+        <article class="case-study-card" data-category="ml">
+          <div class="card-left">
+            <div class="card-header-badge">
+              <span class="card-index">02</span>
+              <span class="card-category-badge">MACHINE LEARNING &bull; PYTHON &bull; XGBOOST</span>
+            </div>
+            
+            <h2 class="card-title">Customer Attrition &amp; Predictive Churn ML Pipeline</h2>
+            
+            <p class="card-summary">
+              Built an end-to-end predictive attrition intelligence system for subscription accounts. Identifies at-risk customers 60 days prior to contract expiration, empowering customer success teams with automated alerts and personalized retention campaigns.
+            </p>
+
+            <div class="card-impact-metrics">
+              <div class="impact-metric">
+                <span class="metric-num">91.8%</span>
+                <span class="metric-text">ROC-AUC Classification</span>
+              </div>
+              <div class="impact-metric">
+                <span class="metric-num">84.2%</span>
+                <span class="metric-text">Precision on At-Risk Cohorts</span>
+              </div>
+              <div class="impact-metric">
+                <span class="metric-num">50K+</span>
+                <span class="metric-text">Monthly Batch Predictions</span>
+              </div>
+            </div>
+
+            <div class="card-methodology">
+              <h3 class="method-title">ANALYTICAL WORKFLOW</h3>
+              <ul class="method-list">
+                <li>Preprocessed high-cardinality behavioral telemetry with SMOTE balancing and outlier trimming.</li>
+                <li>Trained and cross-validated ensemble models (Random Forest, LightGBM, and XGBoost).</li>
+                <li>Implemented SHAP (SHapley Additive exPlanations) values for interpretable feature importance.</li>
+                <li>Deployed an interactive web portal using FastAPI and Streamlit for self-serve scoring.</li>
+              </ul>
+            </div>
+
+            <div class="card-tech-pills">
+              <span class="tech-pill">PYTHON</span>
+              <span class="tech-pill">XGBOOST</span>
+              <span class="tech-pill">SCIKIT-LEARN</span>
+              <span class="tech-pill">PANDAS</span>
+              <span class="tech-pill">SHAP VALUES</span>
+              <span class="tech-pill">STREAMLIT</span>
+            </div>
+
+            <div class="card-footer-actions">
+              <a href="https://github.com/tanishqkumar87919-dot" target="_blank" rel="noreferrer" class="btn-project-primary">
+                <span>VIEW REPOSITORY</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+              </a>
+              <a href="#contact" class="btn-project-secondary">EXPLORE MODEL SPECS</a>
+            </div>
+          </div>
+
+          <div class="card-right">
+            <div class="card-preview-window">
+              <div class="window-bar">
+                <span class="win-dot red"></span>
+                <span class="win-dot yellow"></span>
+                <span class="win-dot green"></span>
+                <span class="win-title">churn_prediction_pipeline.py</span>
+              </div>
+              <img src="/images/churn-analysis.jpg" alt="Churn Analysis Model Architecture" class="window-image" />
+              <div class="window-overlay">
+                <span class="overlay-tag">SUPERVISED ENSEMBLE MODEL</span>
+                <span class="overlay-stats">XGBoost &bull; 91.8% ROC-AUC &bull; SHAP</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 3: Global Market Dynamics & Sentiment Intelligence -->
+        <article class="case-study-card" data-category="sql">
+          <div class="card-left">
+            <div class="card-header-badge">
+              <span class="card-index">03</span>
+              <span class="card-category-badge">BIG DATA &bull; BIGQUERY &bull; NLP</span>
+            </div>
+            
+            <h2 class="card-title">Financial Market Sentiment &amp; Volatility Engine</h2>
+            
+            <p class="card-summary">
+              Engineered a distributed data streaming and sentiment analytics platform analyzing 500,000+ financial headlines, SEC disclosures, and earnings call transcripts to detect early signals of equity volatility and sector shifts.
+            </p>
+
+            <div class="card-impact-metrics">
+              <div class="impact-metric">
+                <span class="metric-num">500K+</span>
+                <span class="metric-text">Documents Processed</span>
+              </div>
+              <div class="impact-metric">
+                <span class="metric-num">3.2x</span>
+                <span class="metric-text">Query Speedup (Partitioning)</span>
+              </div>
+              <div class="impact-metric">
+                <span class="metric-num">88.4%</span>
+                <span class="metric-text">Directional Sentiment Accuracy</span>
+              </div>
+            </div>
+
+            <div class="card-methodology">
+              <h3 class="method-title">ANALYTICAL WORKFLOW</h3>
+              <ul class="method-list">
+                <li>Designed petabyte-scalable Google BigQuery schema partitioned by timestamp and clustered by ticker symbol.</li>
+                <li>Applied transformer-based sentiment extraction and polarity scoring via Python and SQL.</li>
+                <li>Computed rolling statistical cross-correlations between sentiment anomalies and stock volatility indices.</li>
+                <li>Created automated alerting dashboards in Looker Studio with live data streaming.</li>
+              </ul>
+            </div>
+
+            <div class="card-tech-pills">
+              <span class="tech-pill">GOOGLE BIGQUERY</span>
+              <span class="tech-pill">ADVANCED SQL</span>
+              <span class="tech-pill">PYTHON</span>
+              <span class="tech-pill">NLP</span>
+              <span class="tech-pill">LOOKER STUDIO</span>
+              <span class="tech-pill">STATISTICS</span>
+            </div>
+
+            <div class="card-footer-actions">
+              <a href="https://github.com/tanishqkumar87919-dot" target="_blank" rel="noreferrer" class="btn-project-primary">
+                <span>VIEW REPOSITORY</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+              </a>
+              <a href="#contact" class="btn-project-secondary">QUERY ARCHITECTURE</a>
+            </div>
+          </div>
+
+          <div class="card-right">
+            <div class="card-preview-window">
+              <div class="window-bar">
+                <span class="win-dot red"></span>
+                <span class="win-dot yellow"></span>
+                <span class="win-dot green"></span>
+                <span class="win-title">bigquery_sentiment_engine.sql</span>
+              </div>
+              <img src="/images/market-sentiment.jpg" alt="Market Sentiment Analysis Preview" class="window-image" />
+              <div class="window-overlay">
+                <span class="overlay-tag">BIG DATA NLP PIPELINE</span>
+                <span class="overlay-stats">Partitioned BigQuery &bull; 500K+ Articles</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 4: Supply Chain & Multi-Warehouse Routing Optimization -->
+        <article class="case-study-card" data-category="analytics">
+          <div class="card-left">
+            <div class="card-header-badge">
+              <span class="card-index">04</span>
+              <span class="card-category-badge">OPERATIONS &bull; LINEAR PROGRAMMING &bull; TABLEAU</span>
+            </div>
+            
+            <h2 class="card-title">Supply Chain &amp; Multi-Hub Logistics Optimizer</h2>
+            
+            <p class="card-summary">
+              Developed an optimization and dispatch analytics model for a national distribution network with 12 fulfillment centers and 350+ retail nodes. Maximizes fulfillment speed while minimizing multi-stop linehaul transportation overhead.
+            </p>
+
+            <div class="card-impact-metrics">
+              <div class="impact-metric">
+                <span class="metric-num">18%</span>
+                <span class="metric-text">Freight Cost Reduction</span>
+              </div>
+              <div class="impact-metric">
+                <span class="metric-num">99.4%</span>
+                <span class="metric-text">On-Time SLA Delivery</span>
+              </div>
+              <div class="impact-metric">
+                <span class="metric-num">14.2%</span>
+                <span class="metric-text">Inventory Turnover Improvement</span>
+              </div>
+            </div>
+
+            <div class="card-methodology">
+              <h3 class="method-title">ANALYTICAL WORKFLOW</h3>
+              <ul class="method-list">
+                <li>Formulated mathematical linear programming models in Python (PuLP) with supply/demand constraints.</li>
+                <li>Simulated stochastic lead-time variances using Monte Carlo distributions.</li>
+                <li>Crafted interactive geospatial heatmaps and supply chain control towers in Tableau.</li>
+              </ul>
+            </div>
+
+            <div class="card-tech-pills">
+              <span class="tech-pill">PYTHON (PuLP)</span>
+              <span class="tech-pill">TABLEAU</span>
+              <span class="tech-pill">LINEAR PROGRAMMING</span>
+              <span class="tech-pill">MONTE CARLO</span>
+              <span class="tech-pill">SUPPLY CHAIN</span>
+            </div>
+
+            <div class="card-footer-actions">
+              <a href="https://github.com/tanishqkumar87919-dot" target="_blank" rel="noreferrer" class="btn-project-primary">
+                <span>VIEW REPOSITORY</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+              </a>
+              <a href="#contact" class="btn-project-secondary">VIEW DASHBOARD</a>
+            </div>
+          </div>
+
+          <div class="card-right">
+            <div class="card-preview-window">
+              <div class="window-bar">
+                <span class="win-dot red"></span>
+                <span class="win-dot yellow"></span>
+                <span class="win-dot green"></span>
+                <span class="win-title">logistics_optimizer.tableau</span>
+              </div>
+              <img src="/images/laptop-mockup.jpg" alt="Logistics Optimizer Dashboard" class="window-image" />
+              <div class="window-overlay">
+                <span class="overlay-tag">GEOSPATIAL SUPPLY TOWER</span>
+                <span class="overlay-stats">12 Hubs &bull; 350+ Nodes &bull; PuLP Solver</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 5: Healthcare Clinical Readmission Risk Stratifier -->
+        <article class="case-study-card" data-category="ml">
+          <div class="card-left">
+            <div class="card-header-badge">
+              <span class="card-index">05</span>
+              <span class="card-category-badge">HEALTHCARE ML &bull; STATISTICAL MODELING</span>
+            </div>
+            
+            <h2 class="card-title">Clinical Patient Readmission Risk Stratifier</h2>
+            
+            <p class="card-summary">
+              Created an automated risk classification algorithm screening 100K+ electronic health records (EHR) to predict 30-day unplanned post-discharge hospital readmissions, allowing clinicians to take targeted preventative care steps.
+            </p>
+
+            <div class="card-impact-metrics">
+              <div class="impact-metric">
+                <span class="metric-num">32%</span>
+                <span class="metric-text">Avoidable Readmission Drop</span>
+              </div>
+              <div class="impact-metric">
+                <span class="metric-num">100K+</span>
+                <span class="metric-text">Patient Records Analyzed</span>
+              </div>
+              <div class="impact-metric">
+                <span class="metric-num">89.1%</span>
+                <span class="metric-text">Model Sensitivity</span>
+              </div>
+            </div>
+
+            <div class="card-methodology">
+              <h3 class="method-title">ANALYTICAL WORKFLOW</h3>
+              <ul class="method-list">
+                <li>Conducted rigorous exploratory data analysis to isolate comorbidity index coefficients.</li>
+                <li>Handled class imbalance through cost-sensitive learning and weighted cross-entropy penalties.</li>
+                <li>Standardized reproducible data validation checkpoints using Great Expectations.</li>
+              </ul>
+            </div>
+
+            <div class="card-tech-pills">
+              <span class="tech-pill">PYTHON</span>
+              <span class="tech-pill">RANDOM FOREST</span>
+              <span class="tech-pill">BIOSTATISTICS</span>
+              <span class="tech-pill">PANDAS</span>
+              <span class="tech-pill">DATA QUALITY</span>
+            </div>
+
+            <div class="card-footer-actions">
+              <a href="https://github.com/tanishqkumar87919-dot" target="_blank" rel="noreferrer" class="btn-project-primary">
+                <span>VIEW REPOSITORY</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+              </a>
+              <a href="#contact" class="btn-project-secondary">READ CASE STUDY</a>
+            </div>
+          </div>
+
+          <div class="card-right">
+            <div class="card-preview-window">
+              <div class="window-bar">
+                <span class="win-dot red"></span>
+                <span class="win-dot yellow"></span>
+                <span class="win-dot green"></span>
+                <span class="win-title">readmission_stratifier.ipynb</span>
+              </div>
+              <img src="/images/woodcraft-chair.jpg" alt="Clinical Analytics Platform" class="window-image" />
+              <div class="window-overlay">
+                <span class="overlay-tag">EHR CLINICAL PIPELINE</span>
+                <span class="overlay-stats">100K+ Patients &bull; 89.1% Sensitivity</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 6: E-Commerce Funnel & Bayesian A/B Testing Laboratory -->
+        <article class="case-study-card" data-category="analytics">
+          <div class="card-left">
+            <div class="card-header-badge">
+              <span class="card-index">06</span>
+              <span class="card-category-badge">PRODUCT ANALYTICS &bull; A/B TESTING &bull; SQL</span>
+            </div>
+            
+            <h2 class="card-title">E-Commerce Checkout Funnel &amp; A/B Experimentation Engine</h2>
+            
+            <p class="card-summary">
+              Devised an experimentation framework evaluating user drop-offs across a 5-stage checkout funnel for an e-commerce platform processing 450K monthly orders. Combined Bayesian probability with Frequentist hypothesis testing.
+            </p>
+
+            <div class="card-impact-metrics">
+              <div class="impact-metric">
+                <span class="metric-num">+14.6%</span>
+                <span class="metric-text">Checkout Conversion Lift</span>
+              </div>
+              <div class="impact-metric">
+                <span class="metric-num">99.1%</span>
+                <span class="metric-text">Statistical Significance (p &lt; 0.01)</span>
+              </div>
+              <div class="impact-metric">
+                <span class="metric-num">+$280K</span>
+                <span class="metric-text">Annualized GMV Increase</span>
+              </div>
+            </div>
+
+            <div class="card-methodology">
+              <h3 class="method-title">ANALYTICAL WORKFLOW</h3>
+              <ul class="method-list">
+                <li>Automated daily statistical power calculations and minimum detectable effect (MDE) tests.</li>
+                <li>Segmented conversion funnels by acquisition channel, device category, and payment method.</li>
+                <li>Delivered executive drill-down dashboards in Looker Studio with automated confidence intervals.</li>
+              </ul>
+            </div>
+
+            <div class="card-tech-pills">
+              <span class="tech-pill">SQL</span>
+              <span class="tech-pill">A/B TESTING</span>
+              <span class="tech-pill">BAYESIAN INFERENCE</span>
+              <span class="tech-pill">LOOKER STUDIO</span>
+              <span class="tech-pill">PYTHON (SciPy)</span>
+            </div>
+
+            <div class="card-footer-actions">
+              <a href="https://github.com/tanishqkumar87919-dot" target="_blank" rel="noreferrer" class="btn-project-primary">
+                <span>VIEW REPOSITORY</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+              </a>
+              <a href="#contact" class="btn-project-secondary">VIEW STATISTICAL REPORT</a>
+            </div>
+          </div>
+
+          <div class="card-right">
+            <div class="card-preview-window">
+              <div class="window-bar">
+                <span class="win-dot red"></span>
+                <span class="win-dot yellow"></span>
+                <span class="win-dot green"></span>
+                <span class="win-title">funnel_ab_experimentation.sql</span>
+              </div>
+              <img src="/images/urbanic-fashion.jpg" alt="Conversion Funnel Analytics" class="window-image" />
+              <div class="window-overlay">
+                <span class="overlay-tag">EXPERIMENTATION FRAMEWORK</span>
+                <span class="overlay-stats">450K Orders &bull; +14.6% Conversion Lift</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- Architecture & Analytical Stack Section -->
+    <section class="section-architecture">
+      <div class="section-header">
+        <h2 class="section-title">END-TO-END DATA ARCHITECTURE</h2>
+        <div class="header-divider"></div>
+        <span class="section-subtitle-tag">HOW I BUILD ANALYTICS SYSTEMS</span>
+      </div>
+
+      <div class="architecture-grid">
+        <div class="arch-card">
+          <div class="arch-number">01</div>
+          <h3 class="arch-title">DATA INGESTION &amp; PIPELINES</h3>
+          <p class="arch-desc">Connecting raw transactional sources, REST APIs, and third-party event streams into centralized repositories.</p>
+          <div class="arch-tags">
+            <span>PostgreSQL</span>
+            <span>Google BigQuery</span>
+            <span>REST APIs</span>
+            <span>ETL Scripts</span>
+          </div>
+        </div>
+
+        <div class="arch-card">
+          <div class="arch-number">02</div>
+          <h3 class="arch-title">TRANSFORMATION &amp; MODELING</h3>
+          <p class="arch-desc">Cleaning messy records, structuring star schemas, handling nulls, and engineering normalized fact-dimension models.</p>
+          <div class="arch-tags">
+            <span>Python (Pandas)</span>
+            <span>SQL CTEs &amp; Window Functions</span>
+            <span>Data Wrangling</span>
+          </div>
+        </div>
+
+        <div class="arch-card">
+          <div class="arch-number">03</div>
+          <h3 class="arch-title">STATISTICAL &amp; ML ANALYSIS</h3>
+          <p class="arch-desc">Uncovering correlations, training predictive models, evaluating statistical significance, and computing feature impact.</p>
+          <div class="arch-tags">
+            <span>Scikit-Learn</span>
+            <span>XGBoost</span>
+            <span>A/B Testing</span>
+            <span>Hypothesis Testing</span>
+          </div>
+        </div>
+
+        <div class="arch-card">
+          <div class="arch-number">04</div>
+          <h3 class="arch-title">EXECUTIVE BI &amp; ACTION</h3>
+          <p class="arch-desc">Translating algorithmic findings into intuitive, live dashboards that empower leadership to make high-confidence decisions.</p>
+          <div class="arch-tags">
+            <span>Power BI</span>
+            <span>DAX</span>
+            <span>Tableau</span>
+            <span>Looker Studio</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact & Collaboration Section -->
+    <section class="section-contact" id="contact">
+      <div class="contact-card">
+        <div class="contact-left">
+          <h2 class="contact-heading">LET'S BUILD SOMETHING<br/><span class="red-accent">DATA-DRIVEN TOGETHER</span></h2>
+          <p class="contact-sub">
+            Available for data analysis contracts, machine learning consulting, Power BI/Tableau dashboard design, and full-time analytics roles.
+          </p>
+          
+          <div class="contact-badges">
+            <a href="mailto:tanishqkumar87919@gmail.com" class="contact-badge-item">
+              <span class="badge-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+              </span>
+              <span>tanishqkumar87919@gmail.com</span>
+            </a>
+
+            <a href="tel:8791979484" class="contact-badge-item">
+              <span class="badge-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                </svg>
+              </span>
+              <span>+91 87919 79484</span>
+            </a>
+
+            <div class="contact-badge-item location">
+              <span class="badge-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                  <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+              </span>
+              <span>India &bull; Available Worldwide</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-right">
+          <div class="cta-action-box">
+            <span class="cta-tag">DIRECT INQUIRIES</span>
+            <h3 class="cta-title">HAVE A DATASET READY?</h3>
+            <p class="cta-desc">Let's extract actionable insights, discover anomalies, and visualize your key growth drivers.</p>
+            <a href="mailto:tanishqkumar87919@gmail.com" class="btn-cta-hire">
+              <span>GET IN TOUCH</span>
+              <span class="arrow-accent">→</span>
+            </a>
+            
+            <div class="contact-social-links">
+              <a href="https://github.com/tanishqkumar87919-dot" target="_blank" rel="noreferrer" class="social-link">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                </svg>
+                <span>GitHub</span>
+              </a>
+              <a href="https://www.linkedin.com/in/tanishq-kumar-272a712b5/" target="_blank" rel="noreferrer" class="social-link">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                </svg>
+                <span>LinkedIn</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer Copyright -->
+    <footer class="footer">
+      <div class="footer-copy">
+        &copy; 2026 TANISHQ KUMAR &bull; ALL RIGHTS RESERVED
+      </div>
+      <div class="footer-nav">
+        <a href="/index.html">HOME</a>
+        <span class="footer-sep">&bull;</span>
+        <a href="/projects.html">PROJECTS</a>
+        <span class="footer-sep">&bull;</span>
+        <a href="/index.html#skills">SKILLS</a>
+        <span class="footer-sep">&bull;</span>
+        <a href="#contact">CONTACT</a>
+      </div>
+    </footer>
+
+  </div>
+
+  <script type="module" src="/projects.js"></script>
+</body>
+</html>
